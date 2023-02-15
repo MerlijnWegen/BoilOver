@@ -16,6 +16,7 @@ namespace GXPEngine.COBC
         float jumpingvelocity;
 
         bool grounded;
+        bool jumping;
         bool isPlayerOne;
         public Player(int x, int y, bool isPlayerOne = false, string Sprite = "placeholder.png", int columns = 1, int rows = 1) : base(Sprite, columns, rows)
         {
@@ -35,7 +36,7 @@ namespace GXPEngine.COBC
         {
                 if (grounded && Input.GetKey(Key.W) && isPlayerOne || grounded && Input.GetKey(Key.UP) && !isPlayerOne) // w
                 {
-                    y += -jumpSpeed;
+                    Jump();
 
                 }
                 if (Input.GetKey(Key.A) && isPlayerOne || Input.GetKey(Key.LEFT) && !isPlayerOne) // a
@@ -51,28 +52,45 @@ namespace GXPEngine.COBC
                 }
             
         }
-        void jump()
+        void Jump()
         {
             if (grounded)
             {
+                jumping = true;
                 grounded = false;
                 jumpingvelocity = 10;
             }
-            else
-            {
-                jumpingvelocity -= fallingvelocity;
-            }
-            y -= jumpingvelocity;
         }
         void MoveDown()
         {
-            // This is the gravity of the player wich increases over time and has a maximum increase
-            y += fallingvelocity;
-
-            if (fallingvelocity < 5)
+            if (jumping)
             {
-                fallingvelocity += 0.1f;
+                
+                y -= jumpingvelocity;
+                if(jumpingvelocity <= 2)
+                {
+                    jumpingvelocity -= 0.1f;
+                }
+                else
+                {
+                    jumpingvelocity -= 0.2f;
+                }
+                if(jumpingvelocity <= 0)
+                {
+                    jumping= false;
+                }
             }
+            if (!jumping)
+            {
+                // This is the gravity of the player wich increases over time and has a maximum increase
+                y += fallingvelocity;
+
+                if (fallingvelocity < 5)
+                {
+                    fallingvelocity += 0.2f;
+                }
+            }
+            
         }
 
         void OnCollision(GameObject collider)

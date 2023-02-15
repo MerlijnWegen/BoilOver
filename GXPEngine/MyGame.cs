@@ -12,15 +12,21 @@ public class MyGame : Game {
 		canvas.Clear(Color.Black);
 		Player player1 = new Player(100, 100,true);
         Player player2 = new Player(100, 200);
-		Platform test = new Platform(100, 300);
+		Platform test = new Platform(0, 600);
+		Platform test2 = new Platform(200, 600);
+        Platform test3 = new Platform(400, 600);
 
         // Add the canvas to the engine to display it:
         AddChild(canvas);
 		AddChild(player1);
 		AddChild(player2);
-		AddChild(test);
 
-		Console.WriteLine("MyGame initialized");
+		
+		AddChild(test);
+        AddChild(test2);
+        AddChild(test3);
+
+        Console.WriteLine("MyGame initialized");
 	}
 
 	// For every game object, Update is called every frame, by the engine:
