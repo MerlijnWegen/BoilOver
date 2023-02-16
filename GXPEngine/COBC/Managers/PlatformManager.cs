@@ -12,10 +12,10 @@ namespace GXPEngine.COBC.Managers
     {
         ArrayList _platforms = new ArrayList();
         Game game = MyGame.main;
-
+        bool movePlatforms;
         private float lowerSpeed = 0.1f;
         //add platforms to _platforms
-        public void addPlatforms()
+        public void AddPlatforms()
         {
             _platforms.Add(new Platform(50, 600, "placeholder.png", 20));
             _platforms.Add(new Platform(100, 400));
@@ -28,12 +28,16 @@ namespace GXPEngine.COBC.Managers
 
         }
         //load all platforms from _platforms into the game.
-        public void loadPlatforms()
+        public void LoadPlatforms()
         {
             foreach (Platform p in _platforms)
             {
                 game.AddChild(p);
             }
+        }
+        public void TogglePlatform()
+        {
+            movePlatforms= !movePlatforms;
         }
         //update per frame.
         public void Update()
@@ -43,12 +47,15 @@ namespace GXPEngine.COBC.Managers
         //lower each platforms in _platforms by lowerSpeed every frame
         public void LowerPlatforms()
         {
-            foreach (Platform p in _platforms)
+            if (movePlatforms)
             {
-                p.y += lowerSpeed;
-                if (p.y >= 800)
+                foreach (Platform p in _platforms)
                 {
-                    p.LateDestroy();
+                    p.y += lowerSpeed;
+                    if (p.y >= 800)
+                    {
+                        p.LateDestroy();
+                    }
                 }
             }
         }

@@ -13,17 +13,17 @@ namespace GXPEngine.COBC.Managers
         Game game = MyGame.main;
         
         //add two players to _players
-        public void addPlayers()
+        public void AddPlayers()
         {
-            _players.Add(new Player(100, 500, true));
-            _players.Add(new Player(1200, 500));
+            _players.Add(new Player(100, 540, true));
+            _players.Add(new Player(1200, 540));
         }
         //load all players from _players into game (by adding to canvas)
-        public void loadPlayers()
+        public void LoadPlayers()
         {
-            foreach (Player p in _players)
+            foreach (Player player in _players)
             {
-                game.AddChild(p);
+                game.AddChild(player);
             }
         }
     }

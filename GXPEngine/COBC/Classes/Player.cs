@@ -12,12 +12,16 @@ namespace GXPEngine.COBC
     {
         int speed = 3;
         int jumpSpeed = 10;
-        float fallingvelocity;
-        float jumpingvelocity;
+        float knockbackVelocity;
+        float fallingVelocity;
+        float jumpingVelocity;
 
         bool grounded;
         bool jumping;
         bool isPlayerOne;
+        bool xMirror;
+        bool knockback;
+        bool isRight;
         public Player(int x, int y, bool isPlayerOne = false, string Sprite = "placeholder.png", int columns = 1, int rows = 1) : base(Sprite, columns, rows)
         {
             this.isPlayerOne = isPlayerOne;
@@ -28,10 +32,14 @@ namespace GXPEngine.COBC
 
         public void Update()
         {
-            Playermove();
+            if (!knockback)
+            {
+                Playermove();
+            }
             MoveDown();
             GameBoundry();
-            //HitTest();
+            knockbacktemp();
+            
         }
         //stops the movemement for the player if the edges of the game are reached.
         void GameBoundry()
@@ -48,6 +56,10 @@ namespace GXPEngine.COBC
         //controls the player WASD for player 1, arrow keys for player 2
         void Playermove() // controls of the player
         {
+            if (Input.GetKeyDown(Key.R) && isPlayerOne || Input.GetKeyDown(Key.M) && !isPlayerOne)
+            {
+                PlayerShoot();
+            }
                 if (grounded && Input.GetKeyDown(Key.W) && isPlayerOne || grounded && Input.GetKeyDown(Key.UP) && !isPlayerOne) // w
                 {
                     Jump();
@@ -56,15 +68,22 @@ namespace GXPEngine.COBC
                 if (Input.GetKey(Key.A) && isPlayerOne || Input.GetKey(Key.LEFT) && !isPlayerOne) // a
                 {
                     x += -speed;
-                    Mirror(true, false);
+                    xMirror= true;
+                    Mirror(xMirror, false);
                 }
 
                 if (Input.GetKey(Key.D) && isPlayerOne || Input.GetKey(Key.RIGHT) && !isPlayerOne) // d
                 {
                     x += +speed;
-                    Mirror(false, false);
+                    xMirror= false;
+                    Mirror(xMirror, false);
                 }
             
+        }
+        void PlayerShoot()
+        {
+            Projectile test = new Projectile(this, xMirror, "projPlaceholder.png");
+            parent.AddChild(test);
         }
         //if player is grounded jump
         void Jump()
@@ -73,25 +92,42 @@ namespace GXPEngine.COBC
             {
                 jumping = true;
                 grounded = false;
-                jumpingvelocity = jumpSpeed;
+                jumpingVelocity = jumpSpeed;
             }
         }
         //move player down each frame, speed depends on whether the player is jumping or not
         void MoveDown()
         {
-            if (jumping)
+            //clean this code (divide the code)
+            if (knockback)
             {
-                //speed decrease increases towards the end to round off the jump.
-                y -= jumpingvelocity;
-                if(jumpingvelocity <= 2)
+                y -= jumpingVelocity;
+                if (jumpingVelocity <= 2)
                 {
-                    jumpingvelocity -= 0.1f;
+                    jumpingVelocity -= 0.1f;
                 }
                 else
                 {
-                    jumpingvelocity -= 0.2f;
+                    jumpingVelocity -= 0.2f;
                 }
-                if(jumpingvelocity <= 0)
+                if (jumpingVelocity <= 0)
+                {
+                    knockback= false;
+                }
+            }
+            if (jumping)
+            {
+                //speed decrease increases towards the end to round off the jump.
+                y -= jumpingVelocity;
+                if(jumpingVelocity <= 2)
+                {
+                    jumpingVelocity -= 0.1f;
+                }
+                else
+                {
+                    jumpingVelocity -= 0.2f;
+                }
+                if(jumpingVelocity <= 0)
                 {
                     jumping= false;
                 }
@@ -100,41 +136,63 @@ namespace GXPEngine.COBC
             if (!jumping)
             {
                 // This is the gravity of the player wich increases over time and has a maximum increase
-                y += fallingvelocity;
+                y += fallingVelocity;
 
-                if (fallingvelocity < 5)
+                if (fallingVelocity < 2)
                 {
-                    fallingvelocity += 0.2f;
+                    fallingVelocity += 0.1f;
+                }
+                if( fallingVelocity > 2)
+                {
+                    fallingVelocity += 0.2f;
                 }
             }
             
         }
+        public void Knockback(bool isRight2)
+        {
+            isRight = isRight2;
+            grounded = false;
+            knockback = true;
+            jumpingVelocity = 8;
+            
+            
+        }
+        void knockbacktemp()
+        {
+            if (knockback)
+            {
+                if (isRight)
+                {
+                    x -= jumpingVelocity;
+                }
+                else
+                {
+                    x += jumpingVelocity;
+                }
+            }
+            
+        }
+
         //TODO
         void OnLateDestroy()
         {
             Console.WriteLine("Player 1 died: " + isPlayerOne);
         }
-        /*
-        void HitTest()
-        {
-            if(other is Platform)
-                y -= 10f;
-                Console.WriteLine("test");
-        }
-        */
+        
         //if colliding with a platform, stop falling
         void OnCollision(GameObject collider)
         {
-            // this checks if the collided object is am object from the background layer
-            if (collider.name == "Background")
-            {
-                return;
-            }
             // this checks for collisions with tiles on the foreground
             if (collider is Platform)
             {
-                grounded = true;
-                fallingvelocity = 0;
+                if(y <= collider.y - 32)
+                {
+                    y = collider.y - 64;
+                    grounded = true;
+                    fallingVelocity = 0;
+                }
+               
             }
 
 

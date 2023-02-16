@@ -43,6 +43,7 @@
     <Compile Include="COBC\Classes\KillFloor.cs" />
     <Compile Include="COBC\Classes\Platform.cs" />
     <Compile Include="COBC\Classes\Player.cs" />
+    <Compile Include="COBC\Classes\Projectile.cs" />
     <Compile Include="COBC\Managers\PlatformManager.cs" />
     <Compile Include="COBC\Managers\PlayerManager.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />

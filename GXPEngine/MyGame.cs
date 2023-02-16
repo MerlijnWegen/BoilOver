@@ -13,20 +13,20 @@ public class MyGame : Game {
 		playerManager = new PlayerManager();
 		platformManager = new PlatformManager();
 		// Draw some things on a canvas:
-		EasyDraw canvas = new EasyDraw(1366,786);
+		EasyDraw canvas = new EasyDraw(1366,786, false);
 		canvas.Clear(Color.Black);
 		
 		KillFloor killFloor = new KillFloor();
 
         // Add the canvas to the engine to display it:
         AddChild(canvas);
-		playerManager.addPlayers();
-		playerManager.loadPlayers();
-		platformManager.addPlatforms();
-		platformManager.loadPlatforms();
+		playerManager.AddPlayers();
+		playerManager.LoadPlayers();
+		platformManager.AddPlatforms();
+		platformManager.LoadPlatforms();
 		
 		AddChild(killFloor);
-
+		platformManager.TogglePlatform();
         Console.WriteLine("MyGame initialized");
 	}
 
