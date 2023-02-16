@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="COBC\Classes\KillFloor.cs" />
     <Compile Include="COBC\Classes\Platform.cs" />
     <Compile Include="COBC\Classes\Player.cs" />
-    <Compile Include="COBC\Managers\MovementManager.cs" />
+    <Compile Include="COBC\Managers\PlatformManager.cs" />
+    <Compile Include="COBC\Managers\PlayerManager.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />

@@ -30,11 +30,25 @@ namespace GXPEngine.COBC
         {
             Playermove();
             MoveDown();
+            GameBoundry();
+            HitTest();
         }
-
+        //stops the movemement for the player if the edges of the game are reached.
+        void GameBoundry()
+        {
+            if (x >= game.width - width)
+            {
+                x = game.width - width;
+            }
+            if (x <= 0)
+            {
+                x = 0;
+            }
+        }
+        //controls the player WASD for player 1, arrow keys for player 2
         void Playermove() // controls of the player
         {
-                if (grounded && Input.GetKey(Key.W) && isPlayerOne || grounded && Input.GetKey(Key.UP) && !isPlayerOne) // w
+                if (grounded && Input.GetKeyDown(Key.W) && isPlayerOne || grounded && Input.GetKeyDown(Key.UP) && !isPlayerOne) // w
                 {
                     Jump();
 
@@ -52,20 +66,22 @@ namespace GXPEngine.COBC
                 }
             
         }
+        //if player is grounded jump
         void Jump()
         {
             if (grounded)
             {
                 jumping = true;
                 grounded = false;
-                jumpingvelocity = 10;
+                jumpingvelocity = jumpSpeed;
             }
         }
+        //move player down each frame, speed depends on whether the player is jumping or not
         void MoveDown()
         {
             if (jumping)
             {
-                
+                //speed decrease increases towards the end to round off the jump.
                 y -= jumpingvelocity;
                 if(jumpingvelocity <= 2)
                 {
@@ -80,6 +96,7 @@ namespace GXPEngine.COBC
                     jumping= false;
                 }
             }
+            //gravity after jump, or when falling.
             if (!jumping)
             {
                 // This is the gravity of the player wich increases over time and has a maximum increase
@@ -92,7 +109,18 @@ namespace GXPEngine.COBC
             }
             
         }
-
+        //TODO
+        void OnLateDestroy()
+        {
+            Console.WriteLine("Player 1 died: " + isPlayerOne);
+        }
+        void HitTest()
+        {
+            if(other is Platform)
+                y -= 10f;
+                Console.WriteLine("test");
+        }
+        //if colliding with a platform, stop falling
         void OnCollision(GameObject collider)
         {
             // this checks if the collided object is am object from the background layer

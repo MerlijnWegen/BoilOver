@@ -3,35 +3,36 @@ using GXPEngine;                                // GXPEngine contains the engine
 using System.Drawing;                           // System.Drawing contains drawing tools such as Color definitions
 using GXPEngine.COBC;
 using GXPEngine.COBC.Classes;
+using GXPEngine.COBC.Managers;
 
 public class MyGame : Game {
+	private PlayerManager playerManager;
+	private PlatformManager platformManager;
 	public MyGame() : base(1366, 786, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
+		playerManager = new PlayerManager();
+		platformManager = new PlatformManager();
 		// Draw some things on a canvas:
 		EasyDraw canvas = new EasyDraw(1366,786);
 		canvas.Clear(Color.Black);
-		Player player1 = new Player(100, 100,true);
-        Player player2 = new Player(100, 200);
-		Platform test = new Platform(0, 600);
-		Platform test2 = new Platform(200, 600);
-        Platform test3 = new Platform(400, 600);
+		
+		KillFloor killFloor = new KillFloor();
 
         // Add the canvas to the engine to display it:
         AddChild(canvas);
-		AddChild(player1);
-		AddChild(player2);
-
+		playerManager.addPlayers();
+		playerManager.loadPlayers();
+		platformManager.addPlatforms();
+		platformManager.loadPlatforms();
 		
-		AddChild(test);
-        AddChild(test2);
-        AddChild(test3);
+		AddChild(killFloor);
 
         Console.WriteLine("MyGame initialized");
 	}
 
 	// For every game object, Update is called every frame, by the engine:
 	void Update() {
-		// Empty
+		platformManager.Update();
 	}
 
 	static void Main()                          // Main() is the first method that's called when the program is run
