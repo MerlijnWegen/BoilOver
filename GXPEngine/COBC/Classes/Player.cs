@@ -31,7 +31,7 @@ namespace GXPEngine.COBC
             Playermove();
             MoveDown();
             GameBoundry();
-            HitTest();
+            //HitTest();
         }
         //stops the movemement for the player if the edges of the game are reached.
         void GameBoundry()
@@ -114,12 +114,14 @@ namespace GXPEngine.COBC
         {
             Console.WriteLine("Player 1 died: " + isPlayerOne);
         }
+        /*
         void HitTest()
         {
             if(other is Platform)
                 y -= 10f;
                 Console.WriteLine("test");
         }
+        */
         //if colliding with a platform, stop falling
         void OnCollision(GameObject collider)
         {
