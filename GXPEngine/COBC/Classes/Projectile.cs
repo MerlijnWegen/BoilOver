@@ -18,8 +18,8 @@ namespace GXPEngine.COBC.Classes
         {
             this.isRight = isRight;
             this.parentPlayer = player; 
-            this.x = player.x;
-            this.y = player.y;
+            this.x = player.x+10;
+            this.y = player.y+1;
             SetScaleXY(4, 4);
         }
         
@@ -41,13 +41,22 @@ namespace GXPEngine.COBC.Classes
         }
         void OnCollision(GameObject other)
         {
+            if(other is Shield)
+            {
+                this.LateDestroy();
+            }
             if(other is Player pOther)
             {
-                if(pOther != parentPlayer)
+                if(pOther != parentPlayer && !pOther.GetStunned())
                 {
-                    pOther.Knockback(isRight);
+                    if (!pOther.GetStunned())
+                    {
+                        pOther.PlayerHit(isRight);
+
+                    }
                     this.LateDestroy();
                 }
+
             }
             
         }

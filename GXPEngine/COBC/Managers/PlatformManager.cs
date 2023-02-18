@@ -12,19 +12,29 @@ namespace GXPEngine.COBC.Managers
     {
         ArrayList _platforms = new ArrayList();
         Game game = MyGame.main;
+        GameManager gameManager;
         bool movePlatforms;
         private float lowerSpeed = 0.1f;
         //add platforms to _platforms
+        public PlatformManager(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+        }
         public void AddPlatforms()
         {
             _platforms.Add(new Platform(50, 600, "placeholder.png", 20));
             _platforms.Add(new Platform(100, 400));
             _platforms.Add(new Platform(1000, 400));
-            _platforms.Add(new Platform(550, 300));
-            _platforms.Add(new Platform(200, 200));
-            _platforms.Add(new Platform(900, 200));
+            _platforms.Add(new Platform(550, 400));
+            _platforms.Add(new Platform(350, 200));
+            _platforms.Add(new Platform(750, 200));
             _platforms.Add(new Platform(100, 0));
             _platforms.Add(new Platform(1000, 0));
+            _platforms.Add(new Platform(550, 0));
+            _platforms.Add(new Platform(100, -200));
+            _platforms.Add(new Platform(1000, -200));
+            _platforms.Add(new Platform(550, -200));
+
 
         }
         //load all platforms from _platforms into the game.
@@ -35,13 +45,14 @@ namespace GXPEngine.COBC.Managers
                 game.AddChild(p);
             }
         }
-        public void TogglePlatform()
+        public void TogglePlatformMovement()
         {
             movePlatforms= !movePlatforms;
         }
         //update per frame.
         public void Update()
         {
+            lowerSpeed = gameManager.GetBaseVelocity();
             LowerPlatforms();
         }
         //lower each platforms in _platforms by lowerSpeed every frame
@@ -49,11 +60,12 @@ namespace GXPEngine.COBC.Managers
         {
             if (movePlatforms)
             {
-                foreach (Platform p in _platforms)
+                foreach (Platform p in _platforms.ToArray())
                 {
                     p.y += lowerSpeed;
                     if (p.y >= 800)
                     {
+                        _platforms.Remove(p);
                         p.LateDestroy();
                     }
                 }
