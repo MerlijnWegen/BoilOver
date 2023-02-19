@@ -47,12 +47,6 @@ namespace GXPEngine.COBC
         int lives = 3;
         bool isPlayerOne;
         int iFrames = 0;
-      
-        
-        
-
-        
-        
         
         public Player( int x, int y, bool isPlayerOne = false, string Sprite = "placeholder.png", int columns = 1, int rows = 1) : base(Sprite, columns, rows)
         {

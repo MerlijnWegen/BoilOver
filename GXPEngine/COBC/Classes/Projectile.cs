@@ -1,28 +1,20 @@
-﻿using GXPEngine.Core;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GXPEngine.COBC.Classes
+﻿namespace GXPEngine.COBC.Classes
 {
     public class Projectile : Sprite
-    {   
+    {
         bool isRight;
         Player parentPlayer;
         int killtimer = 500;
 
-        public Projectile(Player player, bool isRight,string pImage) : base(pImage)
+        public Projectile(Player player, bool isRight, string pImage) : base(pImage)
         {
             this.isRight = isRight;
-            this.parentPlayer = player; 
-            this.x = player.x+10;
-            this.y = player.y+1;
+            this.parentPlayer = player;
+            this.x = player.x + 10;
+            this.y = player.y + 1;
             SetScaleXY(4, 4);
         }
-        
+
         void Update()
         {
             killtimer--;
@@ -41,13 +33,13 @@ namespace GXPEngine.COBC.Classes
         }
         void OnCollision(GameObject other)
         {
-            if(other is Shield)
+            if (other is Shield)
             {
                 this.LateDestroy();
             }
-            if(other is Player pOther)
+            if (other is Player pOther)
             {
-                if(pOther != parentPlayer && !pOther.GetStunned())
+                if (pOther != parentPlayer && !pOther.GetStunned())
                 {
                     if (!pOther.GetStunned())
                     {
@@ -58,7 +50,7 @@ namespace GXPEngine.COBC.Classes
                 }
 
             }
-            
+
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace GXPEngine.COBC.Managers
 {
@@ -11,7 +6,7 @@ namespace GXPEngine.COBC.Managers
     {
         ArrayList _players = new ArrayList();
         Game game = MyGame.main;
-        
+
         public PlayerManager()
         {
             AddPlayers();
@@ -24,7 +19,7 @@ namespace GXPEngine.COBC.Managers
         public void AddPlayers(int x1 = 100, int y1 = 540, int x2 = 1200, int y2 = 540)
         {
             _players.Add(new Player(x1, y1, true));
-            _players.Add(new Player(x2, y2));      
+            _players.Add(new Player(x2, y2));
         }
         //load all players from _players into game (by adding to canvas)
         public void LoadPlayers()
