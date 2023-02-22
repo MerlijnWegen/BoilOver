@@ -29,6 +29,7 @@ namespace GXPEngine.COBC
         bool isStunned;
 
         //physics
+        float currentPlatformFriction = 0.15f;
         float fallingVelocity;
         float jumpingVelocity;
         float targetSpeed;
@@ -52,6 +53,7 @@ namespace GXPEngine.COBC
         {
             this.isPlayerOne = isPlayerOne;
             this.SetXY(x, y);
+            this.currentPlatformFriction = 0.15f;
             scale = 1f;
             _animationDelay = 5;
         }
@@ -124,7 +126,7 @@ namespace GXPEngine.COBC
             {
                 if(targetSpeed > 0)
                 {
-                    targetSpeed -= 0.15f;
+                    targetSpeed -= currentPlatformFriction;
 
                 }
                 else if(targetSpeed < 0)
@@ -339,15 +341,21 @@ namespace GXPEngine.COBC
             // this checks for collisions with tiles on the foreground
             if (collider is Platform platform)
             {
+                currentPlatformFriction = platform.GetPlatformFriction();
                 lastplatform = platform;
                 if (y <= collider.y - 32)
                 {
+                    platform.SetBreaking(true);
                     y = collider.y - 64;
                     grounded = true;
                     fallingVelocity = 0;
                 }
 
             }
+        }
+        public void SetPlatformFriction(float friction)
+        {
+            currentPlatformFriction = friction;
         }
         public Platform GetLastPlatform()
         {

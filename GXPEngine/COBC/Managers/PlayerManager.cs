@@ -16,7 +16,7 @@ namespace GXPEngine.COBC.Managers
             PlayerBoundry();
         }
         //add two players to _players
-        public void AddPlayers(int x1 = 100, int y1 = 540, int x2 = 1200, int y2 = 540)
+        public void AddPlayers(int x1 = 180, int y1 = 340, int x2 = 1100, int y2 = 340)
         {
             _players.Add(new Player(x1, y1, true));
             _players.Add(new Player(x2, y2));

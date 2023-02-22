@@ -10,40 +10,45 @@ public class MyGame : Game {
 	PlatformManager platformManager;
 	GameManager gameManager;
 	AudioManager audioManager = new AudioManager();
-	
-	public MyGame() : base(1366, 786, false)     // Create a window that's 1366x786 and NOT fullscreen
+
+
+    public MyGame() : base(1366, 786, false)     // Create a window that's 1366x786 and NOT fullscreen
 	{
 		gameManager = new GameManager();
         playerManager = new PlayerManager();
-		platformManager = new PlatformManager(gameManager);
+		platformManager = new PlatformManager(gameManager,playerManager);
         
         // Draw some things on a canvas:
-        EasyDraw canvas = new EasyDraw(1366,786, false);
-		canvas.Clear(Color.Black);
-		
-		KillFloor killFloor = new KillFloor(playerManager);
+        //EasyDraw canvas = new EasyDraw(1366,786, false);
+		Sprite background = new Sprite("background3.png", false, false);
+		//canvas.Clear(Color.Black);
+		//canvas.
 
         // Add the canvas to the engine to display it:
-        AddChild(canvas);
-		playerManager.LoadPlayers();
-		platformManager.AddPlatforms();
-		platformManager.LoadPlatforms();
+        AddChild(background);
+
 		
-		AddChild(killFloor);
-		platformManager.TogglePlatformMovement();
-		Console.WriteLine("MyGame initialized");
+		platformManager.AddStartingPlatforms();
+		platformManager.LoadPlatforms();
+        platformManager.StartPlatformMovement();
+        playerManager.LoadPlayers();
+        Console.WriteLine("MyGame initialized");
 
 	}
 
 	// For every game object, Update is called every frame, by the engine:
 	void Update() {
 		platformManager.Update();
-		playerManager.Update(); 
-	}
-    
+		playerManager.Update();
+    }
+
 	public GameManager GetGameManager()
 	{
 		return gameManager;
+	}
+	public PlayerManager GetPlayerManager()
+	{
+		return playerManager;
 	}
 
     static void Main()                          // Main() is the first method that's called when the program is run

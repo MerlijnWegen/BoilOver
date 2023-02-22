@@ -11,11 +11,11 @@ namespace GXPEngine.COBC.Managers
 {
     public class GameManager
     {
-        float baseVelocity = 0.1f;
+        float basePlatformVelocity = 0.1f;
 
-        public float GetBaseVelocity()
+        public float GetBasePlatformVelocity()
         {
-            return baseVelocity;
+            return basePlatformVelocity;
         }
 
         
