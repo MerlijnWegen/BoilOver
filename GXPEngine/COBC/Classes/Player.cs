@@ -50,12 +50,12 @@ namespace GXPEngine.COBC
         int iFrames = 0;
         bool playerIsActive = true;
         
-        public Player( int x, int y, bool isPlayerOne = false, string Sprite = "placeholder.png", int columns = 1, int rows = 1) : base(Sprite, columns, rows)
+        public Player( int x, int y, bool isPlayerOne = false, string Sprite = "playerImage.png", int columns = 6, int rows = 6) : base(Sprite, columns, rows)
         {
             this.isPlayerOne = isPlayerOne;
             this.SetXY(x, y);
+            this.SetScaleXY(0.3f, 0.3f);
             this.currentPlatformFriction = 0.15f;
-            scale = 1f;
             _animationDelay = 5;
         }
 
@@ -68,6 +68,10 @@ namespace GXPEngine.COBC
                 PlayerActions();
                 PlayerGravity();
                 PlayerKnockback();
+            }
+            if(this is AnimationSprite animationSprite)
+            {
+                animationSprite.Animate();
             }
         }
         //stops the movemement for the player if the edges of the game are reached.
@@ -119,6 +123,14 @@ namespace GXPEngine.COBC
             if (Input.GetKeyUp(Key.D) && isPlayerOne || Input.GetKeyUp(Key.L) && !isPlayerOne) // d
             {
                 isGoingRight= false;
+            }
+            else
+            {
+                if(this is AnimationSprite animationSprite && !hasMomentum)
+                {
+                    animationSprite.SetCycle(0, 6, 20);
+
+                }
             }
         }
         void PlayerMomentum()
@@ -177,6 +189,13 @@ namespace GXPEngine.COBC
             {
                 x += targetSpeed;
             }
+            if (hasMomentum)
+            {
+               if (this is AnimationSprite animationSprite)
+                {
+                    animationSprite.SetCycle(6, 12, 20);
+                }
+            }
             
         }
         void PlayerActions()
@@ -207,7 +226,8 @@ namespace GXPEngine.COBC
             if(projectileCounter == 0)
             {
                 AudioManager.Play("throwProjectile");
-                projectile = new Projectile(this, xMirror, "projPlaceholder.png");
+                projectile = new Projectile(this, xMirror, "bullet.png");
+                projectile.SetScaleXY(0.1f, 0.1f);
                 parent.AddChild(projectile);
                 projectileCounter++;
             }
@@ -349,7 +369,7 @@ namespace GXPEngine.COBC
                 if (y <= collider.y - 32)
                 {
                     platform.SetBreaking(true);
-                    y = collider.y - 64;
+                    y = collider.y - 100;
                     grounded = true;
                     fallingVelocity = 0;
                 }

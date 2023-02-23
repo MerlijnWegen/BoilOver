@@ -70,7 +70,7 @@ namespace GXPEngine.COBC.Managers
             {
                 p1r= true;
             }
-            if (Input.GetKeyDown(Key.M))
+            if (Input.GetKeyDown(Key.P))
             {
                 p2r = true;
             }
