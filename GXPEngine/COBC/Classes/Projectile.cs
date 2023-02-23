@@ -41,6 +41,7 @@
             }
             if (other is Shield)
             {
+                AudioManager.Play("shield");
                 this.LateDestroy();
             }
             if (other is Player pOther)
