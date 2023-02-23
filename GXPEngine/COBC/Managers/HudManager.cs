@@ -28,7 +28,7 @@ namespace GXPEngine.COBC.Managers
         EasyDraw gameTitle;
         EasyDraw gameDesc;
         Sprite background;
-        //Sprite title;
+        Sprite title;
         public HudManager(PlayerManager playerManager)
         {
             SetupHUDElements();
@@ -38,7 +38,7 @@ namespace GXPEngine.COBC.Managers
         public void SetupHUDElements()
         {
             background = new Sprite("background3.png", false, false);
-            //title = new Sprite("logoarcade.png", false, false);
+            title = new Sprite("logoarcade.png", false, false);
             gamePlayHud.Add(hudHealthPD1 = new EasyDraw(game.width, game.height));
             gamePlayHud.Add(hudHealthPD2 = new EasyDraw(game.width, game.height));
             gamePlayHud.Add(hudHealthP1 = new EasyDraw(game.width, game.height));
@@ -95,12 +95,15 @@ namespace GXPEngine.COBC.Managers
         }
         public void DisplayMenu()
         {
+            game.AddChild(title);
+            title.SetScaleXY(0.2f, 0.2f);
+            title.SetXY(370, 100);
             gameTitle.TextAlign(CenterMode.Center, CenterMode.Center);
             gameDesc.TextAlign(CenterMode.Center, CenterMode.Center);
             gameTitle.TextSize(60);
             gameTitle.Fill(0, 0, 0);
             gameDesc.Fill(0, 0, 0);
-            gameTitle.Text("BOIL OVER");
+            gameTitle.Text(" ");
             gameDesc.Text("       PLAYER 1 & 2,\nPRESS FIRE TO PLAY");
             gameTitle.SetXY(0, -200);
             gameDesc.SetXY(0, -100);
