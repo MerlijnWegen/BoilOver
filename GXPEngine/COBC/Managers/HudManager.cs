@@ -28,7 +28,7 @@ namespace GXPEngine.COBC.Managers
         EasyDraw gameTitle;
         EasyDraw gameDesc;
         Sprite background;
-        Sprite title = new Sprite("logoarcade.png",false, false);
+        //Sprite title;
         public HudManager(PlayerManager playerManager)
         {
             SetupHUDElements();
@@ -38,6 +38,7 @@ namespace GXPEngine.COBC.Managers
         public void SetupHUDElements()
         {
             background = new Sprite("background3.png", false, false);
+            //title = new Sprite("logoarcade.png", false, false);
             gamePlayHud.Add(hudHealthPD1 = new EasyDraw(game.width, game.height));
             gamePlayHud.Add(hudHealthPD2 = new EasyDraw(game.width, game.height));
             gamePlayHud.Add(hudHealthP1 = new EasyDraw(game.width, game.height));

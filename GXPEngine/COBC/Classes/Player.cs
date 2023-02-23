@@ -49,6 +49,7 @@ namespace GXPEngine.COBC
         bool isPlayerOne;
         int iFrames = 0;
         bool playerIsActive = true;
+        int bulletAnimCounter;
         
         public Player( int x, int y, bool isPlayerOne = false, string Sprite = "playerImage.png", int columns = 6, int rows = 6) : base(Sprite, columns, rows)
         {
@@ -126,7 +127,11 @@ namespace GXPEngine.COBC
             }
             else
             {
-                if(this is AnimationSprite animationSprite && !hasMomentum&& !isBlocking)
+                if(bulletAnimCounter >= 1)
+                {
+                    bulletAnimCounter--;
+                }
+                if(this is AnimationSprite animationSprite && !hasMomentum&& !isBlocking && bulletAnimCounter == 0)
                 {
                     animationSprite.SetCycle(0, 6, 20);
 
@@ -193,7 +198,7 @@ namespace GXPEngine.COBC
             {
                if (this is AnimationSprite animationSprite)
                 {
-                    animationSprite.SetCycle(6, 12, 20);
+                    animationSprite.SetCycle(6, 6, 20);
                 }
             }
             
@@ -225,7 +230,11 @@ namespace GXPEngine.COBC
         {
             if(projectileCounter == 0)
             {
-                
+                bulletAnimCounter += 30;
+                if (this is AnimationSprite animationSprite)
+                {
+                    animationSprite.SetCycle(22, 6, 5);
+                }
                 AudioManager.Play("throwProjectile");
                 projectile = new Projectile(this, xMirror, "bullet.png");
                 projectile.SetScaleXY(0.1f, 0.1f);
@@ -251,7 +260,7 @@ namespace GXPEngine.COBC
             AudioManager.Play("defence");
             if (this is AnimationSprite animationSprite)
             {
-                animationSprite.SetCycle(33, 0,200);
+                animationSprite.SetCycle(33, 1,200);
             }
             shield = new Shield(this,xMirror);
             AddChild(shield);

@@ -11,8 +11,8 @@
         {
             this.isRight = isRight;
             this.parentPlayer = player;
-            this.x = player.x + 10;
-            this.y = player.y + 1;
+            this.x = player.x + 5;
+            this.y = player.y + 35;
             SetScaleXY(4, 4);
         }
 
