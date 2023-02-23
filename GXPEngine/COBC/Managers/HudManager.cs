@@ -28,6 +28,7 @@ namespace GXPEngine.COBC.Managers
         EasyDraw gameTitle;
         EasyDraw gameDesc;
         Sprite background;
+        Sprite title = new Sprite("logoarcade.png",false, false);
         public HudManager(PlayerManager playerManager)
         {
             SetupHUDElements();

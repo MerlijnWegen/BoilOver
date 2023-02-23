@@ -126,7 +126,7 @@ namespace GXPEngine.COBC
             }
             else
             {
-                if(this is AnimationSprite animationSprite && !hasMomentum)
+                if(this is AnimationSprite animationSprite && !hasMomentum&& !isBlocking)
                 {
                     animationSprite.SetCycle(0, 6, 20);
 
@@ -250,7 +250,7 @@ namespace GXPEngine.COBC
         {
             if (this is AnimationSprite animationSprite)
             {
-                animationSprite.SetCycle(33, 33);
+                animationSprite.SetCycle(33, 0,200);
             }
             shield = new Shield(this,xMirror);
            AddChild(shield);

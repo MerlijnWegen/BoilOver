@@ -51,8 +51,6 @@ namespace GXPEngine.COBC.Classes
 
             }
             AddChild(backgroundPlatform);
-            
-
         }
         void Update()
         {
