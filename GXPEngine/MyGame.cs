@@ -18,8 +18,8 @@ public class MyGame : Game {
     public MyGame() : base(1366, 786, false)     // Create a window that's 1366x786 and NOT fullscreen
 	{
         playerManager = new PlayerManager();
-		platformManager = new PlatformManager(playerManager);
         hudManager = new HudManager(playerManager);
+        platformManager = new PlatformManager(playerManager,hudManager);
         levelManager = new LevelManager(platformManager,playerManager,hudManager);
 
         GameManager.SetManagers(platformManager, levelManager, playerManager,hudManager);
@@ -51,7 +51,7 @@ public class MyGame : Game {
     {
         new MyGame().Start();
         SerialPort port = new SerialPort();
-        port.PortName = "COM7";
+        port.PortName = "COM6";
         port.BaudRate = 9600;
         port.RtsEnable = true;
         port.DtrEnable = true;

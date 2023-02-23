@@ -55,12 +55,12 @@ namespace GXPEngine.COBC.Managers
             hudHealthPD2.TextAlign(CenterMode.Max, CenterMode.Min);
             hudHealthP1.TextAlign(CenterMode.Min, CenterMode.Min);
             hudHealthP2.TextAlign(CenterMode.Max, CenterMode.Min);
-            hudHealthPD1.Fill(255, 0, 0);
-            hudHealthPD2.Fill(255, 0, 0);
+            hudHealthPD1.Fill(176, 47, 18);
+            hudHealthPD2.Fill(176, 47, 18);
             hudHealthP1.SetXY(0, 25);
             hudHealthP2.SetXY(0, 25);
-            hudHealthPD1.Text("Lives player 1:");
-            hudHealthPD2.Text("Lives player 2:");
+            hudHealthPD1.Text("Lives PLAYER 1:");
+            hudHealthPD2.Text("Lives PLAYER 2:");
             hudHealthP1.Text("TEST1");
             hudHealthP2.Text("TEST2");
 
@@ -125,6 +125,14 @@ namespace GXPEngine.COBC.Managers
         public void Update()
         {
             updateGamePlayHud();
+        }
+        public void ReloadGamePlayHud()
+        {
+            foreach(EasyDraw canvas in gamePlayHud)
+            {
+                game.RemoveChild(canvas);
+                game.AddChild(canvas);
+            }
         }
         void updateGamePlayHud()
         {

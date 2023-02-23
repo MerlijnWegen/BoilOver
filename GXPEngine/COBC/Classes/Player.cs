@@ -78,19 +78,19 @@ namespace GXPEngine.COBC
             if (!isStunned)
             {
                 //jump up
-                if (grounded && Input.GetKeyDown(Key.W) && isPlayerOne || grounded && Input.GetKeyDown(Key.UP) && !isPlayerOne) // w
+                if (grounded && Input.GetKeyDown(Key.W) && isPlayerOne || grounded && Input.GetKeyDown(Key.I) && !isPlayerOne) // w
                 {
                     Jump();
                 }
                 //drop down
-                if (Input.GetKeyDown(Key.S) && isPlayerOne || Input.GetKeyDown(Key.DOWN) && !isPlayerOne) // d
+                if (Input.GetKeyDown(Key.S) && isPlayerOne || Input.GetKeyDown(Key.K) && !isPlayerOne) // d
                 {
                     y += 33;
                     grounded = false;
                 }
             }
                 // go left
-                if (Input.GetKeyDown(Key.A) && isPlayerOne || Input.GetKeyDown(Key.LEFT) && !isPlayerOne) // a
+                if (Input.GetKeyDown(Key.A) && isPlayerOne || Input.GetKeyDown(Key.J) && !isPlayerOne) // a
                 {
                     isGoingLeft= true;
                 if (!isBlocking)
@@ -100,7 +100,7 @@ namespace GXPEngine.COBC
                     
                 }
                 //go right
-                if (Input.GetKeyDown(Key.D) && isPlayerOne || Input.GetKeyDown(Key.RIGHT) && !isPlayerOne) // d
+                if (Input.GetKeyDown(Key.D) && isPlayerOne || Input.GetKeyDown(Key.L) && !isPlayerOne) // d
                 {
                     isGoingRight= true;
                 if (!isBlocking)
@@ -111,12 +111,12 @@ namespace GXPEngine.COBC
                 }
             Mirror(xMirror, false);
             //release left
-            if (Input.GetKeyUp(Key.A) && isPlayerOne || Input.GetKeyUp(Key.LEFT) && !isPlayerOne) // a
+            if (Input.GetKeyUp(Key.A) && isPlayerOne || Input.GetKeyUp(Key.J) && !isPlayerOne) // a
             {
                 isGoingLeft = false;
             }
             //release right
-            if (Input.GetKeyUp(Key.D) && isPlayerOne || Input.GetKeyUp(Key.RIGHT) && !isPlayerOne) // d
+            if (Input.GetKeyUp(Key.D) && isPlayerOne || Input.GetKeyUp(Key.L) && !isPlayerOne) // d
             {
                 isGoingRight= false;
             }
@@ -185,18 +185,18 @@ namespace GXPEngine.COBC
             {
                 if (!isBlocking)
                 {
-                    if (Input.GetKeyDown(Key.R) && isPlayerOne || Input.GetKeyDown(Key.M) && !isPlayerOne)
+                    if (Input.GetKeyDown(Key.R) && isPlayerOne || Input.GetKeyDown(Key.P) && !isPlayerOne)
                     {
                         PlayerShoot();
                     }
                 }
                 
-                if (Input.GetKeyDown(Key.E) && isPlayerOne || Input.GetKeyDown(Key.N) && !isPlayerOne)
+                if (Input.GetKeyDown(Key.E) && isPlayerOne || Input.GetKeyDown(Key.O) && !isPlayerOne)
                 {
                     PlayerBlock();
                     isBlocking = true;
                 }
-                if (Input.GetKeyUp(Key.E) && isPlayerOne || Input.GetKeyUp(Key.N) && !isPlayerOne)
+                if (Input.GetKeyUp(Key.E) && isPlayerOne || Input.GetKeyUp(Key.O) && !isPlayerOne)
                 {
                     StopBlocking();
                 }

@@ -16,6 +16,7 @@ namespace GXPEngine.COBC.Managers
         Platform newPlatform;
         KillFloor killFloor;
         PlayerManager playerManager;
+        HudManager hudManager;
         Random randomPLayout = new Random(Time.time + 325235);
         Random randomPVariant = new Random(Time.time + 583812);
 
@@ -25,9 +26,10 @@ namespace GXPEngine.COBC.Managers
         int platformCooldown = 1300;
         int platformCounter;
         //add platforms to _platforms
-        public PlatformManager( PlayerManager playerManager)
+        public PlatformManager( PlayerManager playerManager, HudManager hudManager)
         {
             this.playerManager = playerManager;
+            this.hudManager = hudManager;
             platformCounter = platformCooldown;
         }
         public void AddStartingPlatforms()
@@ -76,6 +78,7 @@ namespace GXPEngine.COBC.Managers
             game.AddChild(newPlatform);
             playerManager.reloadPlayers();
             ReloadKillFloor();
+            hudManager.ReloadGamePlayHud();
         }
         public void GetRandomPlatformLayout()
         {
@@ -141,6 +144,7 @@ namespace GXPEngine.COBC.Managers
                 p.Destroy();
             }
             _platforms.Clear();
+            platformCounter = platformCooldown;
         }
 
         //lower each platforms in _platforms by lowerSpeed every frame
