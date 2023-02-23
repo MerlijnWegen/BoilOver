@@ -16,7 +16,7 @@ namespace GXPEngine.COBC.Managers
         static LevelManager levelManager;
         static PlayerManager playerManager;
         static HudManager hudManager;
-        static float basePlatformVelocity = 0.15f;
+        static float basePlatformVelocity = 0.2f;
         static int maxLives = 3;
         static string activeScene;
         static bool gameActive = false;

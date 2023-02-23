@@ -15,9 +15,10 @@
             }
             else
             {
-                targetX = x + 64;
+                targetX = x + 350;
             }
             this.SetXY(targetX, y);
+            this.SetScaleXY(5.1f,5.1f);
         }
 
     }

@@ -89,7 +89,7 @@ namespace GXPEngine.COBC
                 //drop down
                 if (Input.GetKeyDown(Key.S) && isPlayerOne || Input.GetKeyDown(Key.K) && !isPlayerOne) // d
                 {
-                    y += 33;
+                    y += 70;
                     grounded = false;
                 }
             }
@@ -225,6 +225,7 @@ namespace GXPEngine.COBC
         {
             if(projectileCounter == 0)
             {
+                
                 AudioManager.Play("throwProjectile");
                 projectile = new Projectile(this, xMirror, "bullet.png");
                 projectile.SetScaleXY(0.1f, 0.1f);
@@ -247,7 +248,11 @@ namespace GXPEngine.COBC
         }
         void PlayerBlock()
         {
-           shield = new Shield(this,xMirror);
+            if (this is AnimationSprite animationSprite)
+            {
+                animationSprite.SetCycle(33, 33);
+            }
+            shield = new Shield(this,xMirror);
            AddChild(shield);
         }
         void StopBlocking()
@@ -291,8 +296,6 @@ namespace GXPEngine.COBC
             }
             else if (isStunned && iFrames <= 0)
             {
-                
-                
                 if (isBlocking)
                 {
                     StopBlocking();
@@ -366,7 +369,7 @@ namespace GXPEngine.COBC
             {
                 currentPlatformFriction = platform.GetPlatformFriction();
                 lastplatform = platform;
-                if (y <= collider.y - 32)
+                if (y <= collider.y - 50)
                 {
                     platform.SetBreaking(true);
                     y = collider.y - 100;
