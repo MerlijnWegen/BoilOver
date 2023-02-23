@@ -1,20 +1,20 @@
-﻿using System;
+﻿using GXPEngine;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using GXPEngine;
 
-public class AudioManager
+static public class AudioManager
 {
-    Dictionary<string,Sound> _sounds = new Dictionary<string,Sound>();
+    static Dictionary<string, Sound> _sounds = new Dictionary<string, Sound>();
 
 
-    public AudioManager()
+    static public void Init()
     {
         //example: AddSound("name", "filename.mp3");
         LoadSounds();
     }
 
-    public void LoadSounds()
+    static public void LoadSounds()
     {
         // Get the program's directory path
         string programDir = Directory.GetCurrentDirectory();
@@ -23,7 +23,7 @@ public class AudioManager
         string soundsDir = Path.Combine(programDir, "SoundFiles");
 
         // Get an array of all .mp3 files in the directory
-        string[] mp3Files = Directory.GetFiles(soundsDir, "*.mp3");
+        string[] mp3Files = Directory.GetFiles(soundsDir, "*.wav");
 
         // Loop through each .mp3 file and add it to the dictionary
         foreach (string mp3File in mp3Files)
@@ -40,20 +40,21 @@ public class AudioManager
     }
 
 
-    public void AddSound(string name, String soundFileName)
+    static public void AddSound(string name, String soundFileName)
     {
         _sounds.Add(name, new Sound(soundFileName));
     }
-    public void Play(string name)
+    static public void Play(string name)
     {
-        try{
+        try
+        {
             _sounds[name].Play();
         }
         catch
         {
             Console.WriteLine(name + ".mp3 cannot be found, make sure it is in the \"Soundfiles\" folder");
         }
-        
+
     }
 
 }

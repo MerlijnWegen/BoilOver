@@ -5,6 +5,7 @@
         bool isRight;
         Player parentPlayer;
         int killtimer = 500;
+        bool playedSound;
 
         public Projectile(Player player, bool isRight, string pImage) : base(pImage)
         {
@@ -24,15 +25,20 @@
             }
             if (isRight)
             {
-                x -= 5f;
+                x -= 10f;
             }
             else
             {
-                x += 5f;
+                x += 10f;
             }
         }
         void OnCollision(GameObject other)
         {
+            if(other is KillFloor && !playedSound)
+            {
+                AudioManager.Play("platformWater");
+                playedSound = true;
+            }
             if (other is Shield)
             {
                 this.LateDestroy();
