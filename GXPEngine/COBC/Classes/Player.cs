@@ -248,12 +248,13 @@ namespace GXPEngine.COBC
         }
         void PlayerBlock()
         {
+            AudioManager.Play("defence");
             if (this is AnimationSprite animationSprite)
             {
                 animationSprite.SetCycle(33, 33);
             }
             shield = new Shield(this,xMirror);
-           AddChild(shield);
+            AddChild(shield);
         }
         void StopBlocking()
         {
@@ -282,6 +283,7 @@ namespace GXPEngine.COBC
             this.isFacingRight = isFacingRight;
             if(iFrames <= 0)
             {
+                AudioManager.Play("hit");
                 isStunned = true;
                 grounded = false;
                 jumpingVelocity = 8;
@@ -413,6 +415,7 @@ namespace GXPEngine.COBC
         }
         public bool GetStunned()
         {
+            AudioManager.Play("hit");
             return isStunned;
         }
         public int GetLives()
