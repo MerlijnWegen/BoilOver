@@ -40,7 +40,7 @@ namespace GXPEngine.COBC.Classes
             {
                 backgroundPlatform = new AnimationSprite(image, 3, 3, 1);
                 backgroundPlatform.SetXY(-5, -70);
-                backgroundPlatform.SetScaleXY(0.02f, 0.1f);
+                backgroundPlatform.SetScaleXY(0.2f, 1f);
                 backgroundPlatform.SetCycle(1, 7, 30);
             }
             else

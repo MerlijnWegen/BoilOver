@@ -83,7 +83,7 @@ namespace GXPEngine.COBC.Managers
 
         public class Program
         {
-            static void Main(string[] args)
+            /*static void Main(string[] args)
             {
                 Process p = new Process();
                 Console.WriteLine("Current State = " + p.CurrentState);
@@ -93,6 +93,7 @@ namespace GXPEngine.COBC.Managers
                 Console.WriteLine("Command.Exit: Current State = " + p.MoveNext(Command.Exit));
                 Console.ReadLine();
             }
+            */
         }
     }
 }

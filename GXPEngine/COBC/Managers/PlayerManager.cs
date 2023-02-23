@@ -5,8 +5,7 @@ namespace GXPEngine.COBC.Managers
     public class PlayerManager
     {
         ArrayList _players = new ArrayList();
-        Game game = MyGame.main;
-
+        Game game = Game.main;
         public PlayerManager()
         {
             AddPlayers();
@@ -26,8 +25,17 @@ namespace GXPEngine.COBC.Managers
         {
             foreach (Player player in _players)
             {
-                game.AddChild(player);
+                if (player.GetLives() > 0)
+                {
+                    game.AddChild(player);
+                }
+               
             }
+        }
+        public int GetPlayerLives(int identifier)
+        {
+            Player player = (Player)_players[identifier];
+            return player.GetLives();
         }
         public void PlayerBoundry()
         {
@@ -41,22 +49,64 @@ namespace GXPEngine.COBC.Managers
                 {
                     player.x = 0;
                 }
+                if (player.y < -16)
+                {
+                    player.y = -16;
+                }
             }
         }
-
+        public void reloadPlayers()
+        {
+            foreach(Player player in _players)
+            {
+                game.RemoveChild(player);
+                game.AddChild(player);
+            }
+        }
+        public void SetPlayersActive()
+        {
+            foreach (Player player in _players)
+            {
+                player.SetIsActive();
+            }
+        }
+        public void SetPlayersInactive()
+        {
+            foreach (Player player in _players)
+            {
+                player.SetIsInactive();
+            }
+        }
         public void PlayerDied(Player player)
         {
             player.SetIframes(300);
             player.DecLive();
+            AudioManager.Play("playerWater");
             if (player.GetLives() > 0)
             {
+                AudioManager.Play("loseLife");
                 player.x = player.GetLastPlatform().x + 64;
                 player.y = player.GetLastPlatform().y - 64;
             }
             else
             {
-                player.LateDestroy();
+                player.LateRemove();
+                GameManager.GameOver(player.IsPlayerOne());
+                
             }
+        }
+        public void ResetPlayers()
+        {
+            RemovePlayers();
+            AddPlayers();
+        }
+        public void RemovePlayers()
+        {
+            foreach(Player player in _players)
+            {
+                player.Destroy();
+            }
+            _players.Clear();
         }
     }
 }

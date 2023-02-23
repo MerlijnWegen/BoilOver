@@ -11,48 +11,41 @@ using System.IO.Ports;
 public class MyGame : Game {
 	PlayerManager playerManager;
 	PlatformManager platformManager;
-	GameManager gameManager;
-	AudioManager audioManager = new AudioManager();
+    HudManager hudManager;
+    LevelManager levelManager;
 
 
     public MyGame() : base(1366, 786, false)     // Create a window that's 1366x786 and NOT fullscreen
 	{
-		gameManager = new GameManager();
         playerManager = new PlayerManager();
-		platformManager = new PlatformManager(gameManager,playerManager);
-        
+		platformManager = new PlatformManager(playerManager);
+        hudManager = new HudManager(playerManager);
+        levelManager = new LevelManager(platformManager,playerManager,hudManager);
+
+        GameManager.SetManagers(platformManager, levelManager, playerManager,hudManager);
+
+
         // Draw some things on a canvas:
         //EasyDraw canvas = new EasyDraw(1366,786, false);
-		Sprite background = new Sprite("background3.png", false, false);
+        Sprite background = new Sprite("background3.png", false, false);
 		//canvas.Clear(Color.Black);
 		//canvas.
 
         // Add the canvas to the engine to display it:
         AddChild(background);
-
+        
+        GameManager.InitGame(levelManager);
 		
-		platformManager.AddStartingPlatforms();
-		platformManager.LoadPlatforms();
-        platformManager.StartPlatformMovement();
-        playerManager.LoadPlayers();
+		
         Console.WriteLine("MyGame initialized");
 
 	}
 
 	// For every game object, Update is called every frame, by the engine:
 	void Update() {
-		platformManager.Update();
-		playerManager.Update();
+		GameManager.Update();
+            GetDiagnostics();
     }
-
-	public GameManager GetGameManager()
-	{
-		return gameManager;
-	}
-	public PlayerManager GetPlayerManager()
-	{
-		return playerManager;
-	}
 
     static void Main()                          // Main() is the first method that's called when the program is run
     {

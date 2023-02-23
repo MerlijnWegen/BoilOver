@@ -45,9 +45,10 @@ namespace GXPEngine.COBC
         float projectileCooldown = 0.1f;
 
         //other
-        int lives = 3;
+        int lives = GameManager.GetMaxLives();
         bool isPlayerOne;
         int iFrames = 0;
+        bool playerIsActive = true;
         
         public Player( int x, int y, bool isPlayerOne = false, string Sprite = "placeholder.png", int columns = 1, int rows = 1) : base(Sprite, columns, rows)
         {
@@ -60,13 +61,14 @@ namespace GXPEngine.COBC
 
         public void Update()
         {
-            Playermove();
-            PlayerMomentum();
-            PlayerActions();
-            PlayerGravity();
-            PlayerKnockback();
-            
-
+            if (playerIsActive)
+            {
+                Playermove();
+                PlayerMomentum();
+                PlayerActions();
+                PlayerGravity();
+                PlayerKnockback();
+            }
         }
         //stops the movemement for the player if the edges of the game are reached.
 
@@ -204,6 +206,7 @@ namespace GXPEngine.COBC
         {
             if(projectileCounter == 0)
             {
+                AudioManager.Play("throwProjectile");
                 projectile = new Projectile(this, xMirror, "projPlaceholder.png");
                 parent.AddChild(projectile);
                 projectileCounter++;
@@ -397,13 +400,20 @@ namespace GXPEngine.COBC
         {
             return grounded;
         }
+        public bool IsPlayerOne()
+        {
+            return isPlayerOne;
+        }
         public void SetGrounded(bool value)
         {
             grounded = value;
         }
         public void DecLive()
         {
-            lives--;
+            if(lives >= 1)
+            {
+                lives--;
+            }   
         }
         public void SetIframes(int value)
         {
@@ -412,6 +422,14 @@ namespace GXPEngine.COBC
             {
                 iFrames = 0;
             }
+        }
+        public void SetIsActive()
+        {
+            playerIsActive= true;
+        }
+        public void SetIsInactive()
+        {
+            playerIsActive= false;
         }
     }
 }
