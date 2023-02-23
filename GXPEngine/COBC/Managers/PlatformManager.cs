@@ -23,7 +23,7 @@ namespace GXPEngine.COBC.Managers
         bool movePlatforms;
         private float lowerSpeed = 0.1f;
 
-        int platformCooldown = 1300;
+        int platformCooldown = 1000;
         int platformCounter;
         //add platforms to _platforms
         public PlatformManager( PlayerManager playerManager, HudManager hudManager)
