@@ -56,9 +56,8 @@ public class MyGame : Game {
         port.RtsEnable = true;
         port.DtrEnable = true;
         port.Open();
-        //port.Write("4");
-
-                       // Create a "MyGame" and start it
+        //port.Write("7");
+            // Create a "MyGame" and start it
 
         while (true)
         {
