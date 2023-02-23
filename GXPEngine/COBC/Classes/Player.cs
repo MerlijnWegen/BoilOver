@@ -131,7 +131,7 @@ namespace GXPEngine.COBC
                 {
                     bulletAnimCounter--;
                 }
-                if(this is AnimationSprite animationSprite && !hasMomentum&& !isBlocking && bulletAnimCounter == 0)
+                if(this is AnimationSprite animationSprite && !hasMomentum&& !isBlocking && bulletAnimCounter == 0 && grounded)
                 {
                     animationSprite.SetCycle(0, 6, 20);
 
@@ -280,6 +280,10 @@ namespace GXPEngine.COBC
         {
             if (grounded)
             {
+                if (this is AnimationSprite animationSprite)
+                {
+                    animationSprite.SetCycle(16, 5,20);
+                }
                 isJumping = true;
                 grounded = false;
                 jumpingVelocity = jumpSpeed;
