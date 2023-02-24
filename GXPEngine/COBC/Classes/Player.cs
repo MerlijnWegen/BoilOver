@@ -236,7 +236,13 @@ namespace GXPEngine.COBC
                     animationSprite.SetCycle(22, 6, 5);
                 }
                 AudioManager.Play("throwProjectile");
-                projectile = new Projectile(this, xMirror, "bullet.png");
+                if (isPlayerOne)
+                {
+                    projectile = new Projectile(this, xMirror, "rice_shot.png");
+                }
+                else {
+                    projectile = new Projectile(this, xMirror, "Chili_shot.png");
+                }
                 projectile.SetScaleXY(0.1f, 0.1f);
                 parent.AddChild(projectile);
                 projectileCounter++;

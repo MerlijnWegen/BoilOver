@@ -17,8 +17,8 @@ namespace GXPEngine.COBC.Managers
         //add two players to _players
         public void AddPlayers(int x1 = 180, int y1 = 340, int x2 = 1100, int y2 = 340)
         {
-            _players.Add(new Player(x1, y1, true));
-            _players.Add(new Player(x2, y2));
+            _players.Add(new Player(x1, y1, true, "playerimage.png"));
+            _players.Add(new Player(x2, y2, false, "playerimage2.png"));
         }
         //load all players from _players into game (by adding to canvas)
         public void LoadPlayers()

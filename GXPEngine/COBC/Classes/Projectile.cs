@@ -25,12 +25,14 @@
             }
             if (isRight)
             {
+
                 x -= 10f;
             }
             else
             {
                 x += 10f;
             }
+            Mirror(isRight, false);
         }
         void OnCollision(GameObject other)
         {
